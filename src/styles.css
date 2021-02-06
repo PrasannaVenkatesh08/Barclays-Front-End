@@ -1,1 +1,22 @@
 /* You can add global styles to this file, and also import other style files */
+
+.spinner-three-bounce {
+    margin-top: 150px !important;
+    min-height: 450px !important ;
+}
+.fixed_subHeader{
+    margin-top: 56px;
+}
+
+.absolute_body{
+    top: 112px !important;
+    position: absolute !important ;
+    right: 0;
+    left: 0;
+}
+
+.ellipsis { 
+    overflow: hidden; 
+    white-space: nowrap; 
+    text-overflow: ellipsis; 
+}

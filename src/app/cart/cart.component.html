@@ -1,0 +1,90 @@
+<div class="card text-center fixed_subHeader">
+    <div class="card-header">
+        <ul class="nav nav-tabs card-header-tabs">
+            <li class="nav-item">
+                <a class="nav-link active" href="#">My Cart</a>
+            </li>
+        </ul>
+    </div>
+    <div class="card-body">
+        <div class="w-50 mr-5 ml-5 float-left">
+            <div class="card-body">
+                <div class="card w-100" *ngFor="let product of cartList">
+                    <div class="card-body">
+                        <div class="container-fluid float-left">
+                            <div class="w-25 mr-5 float-left">
+                                <img src="{{product.image}}" class="rounded float-left img-fluid"
+                                    [title]="product.title" alt="Image Not Found">
+                            </div>
+                            <div class="w-50 float-left">
+                                <div class="row">
+                                    <h5 class="card-title ellipsis" [title]="product.title">{{product.title}}</h5>
+                                </div>
+                                <div class="row text-center font-weight-bold marginLeft_36">
+                                    <h5>&#x20b9; {{product.price}}</h5>
+                                </div>
+                                <div class="row mt-1 mb-2">
+                                   Items : <input type="number" class="w-25 ml-3" name="countProduct" [(ngModel)]="product.count"
+                                        (change)="priceChange()" min="1" />
+                                    
+                                </div>
+                                <div class="row">
+                                    <button type="row button" class="btn btn-danger" (click)="removeFromCart()" >Remove</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="w-25 mt-4 float-left">
+            <div class="card border-primary mb-3" style="max-width: 18rem;">
+                <div class="card-header">Price Details</div>
+                <div class="card-body text-primary">
+                    <div class="w-30 ml-5 float-left">
+                        <div class="row">
+                            Price of Product(s) =
+                        </div>
+                        <div class="row">
+                            Delivery Charges =
+                        </div>
+                    </div>
+                    <div class="w-20 ml-5 float-left">
+                        <div class="row">
+                            {{totalMoney}}
+                        </div>
+                        <div class="row">
+                            0
+                        </div>
+                    </div>
+                    <div class="w-100 float-left"><hr/></div>
+                    <div class="w-100 float-left" >
+                        TotalCharges = {{totalMoney}}
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div class ="row">
+                    Provide below details to place the order
+                </div>
+                <form>
+                    <div class="form-group">
+                      <label for="exampleInputEmail1">Name</label>
+                      <input type="text" class="form-control" id="exampleInputEmail1" name="username" [(ngModel)]="placeOrderObj.name" aria-describedby="emailHelp" placeholder="Name">
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleInputPassword1">Email</label>
+                      <input type="email" class="form-control" id="exampleInputPassword1" name="email" [(ngModel)]="placeOrderObj.email" placeholder="Email ID" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="examplephone">Phone No</label>
+                        <input type="number" required class="form-control" id="exampleInputPassword1" name="mobNumber" [(ngModel)]="placeOrderObj.mobNumber" placeholder="Phone Number" min="0000000000" max="9999999999" >
+                    </div>
+                    
+                    <button type="submit" [disabled]="placeOrderObj.name ==='' || placeOrderObj.email === '' || placeOrderObj.mobNumber == 9999999999 || placeOrderObj.amount == 0" (click)="placeOrder()"  class="btn btn-primary">Place Order</button>
+                  </form>
+            </div>
+           
+        </div>
+    </div>
+</div>

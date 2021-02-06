@@ -1,0 +1,74 @@
+<div class="card text-center fixed_subHeader">
+  <div class="card-header">
+    <ul class="nav nav-tabs card-header-tabs">
+      <li class="nav-item" *ngFor="let sHeader of subHeaders; index as i">
+        <a *ngIf="i == 0" class="nav-link active" href="#">{{sHeader}}</a>
+        <a *ngIf="i != 0" class="nav-link" href="#cardbody_{{i}}">{{sHeader}}</a>
+      </li>
+    </ul>
+  </div>
+  <div class="card-body">
+    <div class="card w-75"
+      *ngFor="let product of productDetails | 
+  paginate: { id : 'pagenationID' ,itemsPerPage: 10, currentPage: fetchProdObject.currentPage,totalItems: fetchProdObject.totalRecords}">
+      <div class="card-body">
+        <div class="container-fluid">
+          <div class="w-25 float-left">
+            <img src="{{product.image}}" class="rounded float-left img-fluid" [title]="product.title"
+              alt="Image Not Found">
+          </div>
+          <div class="w-50 float-left">
+            <div class="container">
+              <div class="row">
+                <h5 class="card-title ellipsis" [title]="product.title">{{product.title}}</h5>
+              </div>
+              <div class="row">
+                <ngb-rating [rate]="product.average_rating">
+                  <ng-template let-fill="fill" let-index="index">
+                    <span class="star" [class.filled]="fill === 100" [class.bad]="index < 3">&#9733;</span>
+                  </ng-template>
+                </ngb-rating>
+                <span class="ml-1 mt-1">{{product.ratings_count}} Ratings</span>
+              </div>
+              <div class="">
+                <ul>
+                  <li class="text-left"> Author : {{product.authors}}</li>
+                  <li class="text-left"> ISBN : {{product.isbn}}</li>
+                  <li class="text-left"> Language Code : {{product.language_code}}</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="w-25 float-left">
+            <div class="row text-center font-weight-bold marginLeft_36">
+              <h3>&#x20b9; {{product.price}}</h3>
+            </div>
+            <div class="row cartButton">
+              <button type="row button" class="btn btn-warning" (click)="addToCart(product)"
+                *ngIf="product.inCart == null || product.inCart == false">Add to
+                Cart <i style="font-size:24px" class="fa fa-shopping-cart"></i></button>
+              <button type="row button" class="btn btn-warning" (click)="navigateToCart()" *ngIf="product.inCart">Go to
+                Cart <i style="font-size:24px" class="fa fa-shopping-cart"></i></button>
+            </div>
+            <div class="row buyButton">
+              <button type="row button" class="btn btn-warning" (click)="buyButton(product)"><i class="fa fa-money" aria-hidden="true"></i>
+                Buy</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="productDetails.length > 0">
+      <pagination-controls maxSize="5" directionLinks="true" (pageChange)="fetchProdObject.currentPage = $event"
+        id="pagenationID"></pagination-controls>
+    </div>
+
+    <ngx-loading [show]="loader" [config]="{ backdropBorderRadius: '3px'}" fullScreenBackdrop="true"
+      [template]="customLoadingTemplate"></ngx-loading>
+
+    <div *ngIf="noBooks" class="container">
+      <h4>No Books Found. Please try again later</h4>
+    </div>
+  </div>
+</div>
